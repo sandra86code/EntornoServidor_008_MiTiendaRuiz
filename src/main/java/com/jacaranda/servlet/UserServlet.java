@@ -3,8 +3,9 @@ package com.jacaranda.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
-
+import java.util.Iterator; 
+import javax.servlet.*;  
+import javax.servlet.http.*;  
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -80,7 +81,7 @@ public class UserServlet extends HttpServlet {
 				+ "</thead>"
 				+ "<tbody>";
 		String htmlTablePart2 = "</tbody></table></div></div></div></body></html>";
-
+		
 		if(nick==null || nick.isBlank() || nick.isEmpty() || password == null || password.isBlank() || password.isEmpty() ) {
 			response.setContentType("text/html;charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");

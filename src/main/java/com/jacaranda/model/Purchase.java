@@ -1,22 +1,22 @@
 package com.jacaranda.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="purchase")
-public class Purchase {
+@IdClass(Purchase.class)
+public class Purchase implements Serializable {
 	@Id
-	private int cod;
-	@Column(name="article_price")
-	private double price;
 	@ManyToOne
 	@JoinColumn(name="article_id")
 	private Article article;
@@ -25,6 +25,8 @@ public class Purchase {
 	private User user;
 	@Column(name="purchase_date")
 	private LocalDate date;
+	@Column(name="article_price")
+	private double price;
 	private int quantity;
 	
 	
@@ -34,25 +36,16 @@ public class Purchase {
 	}
 
 
-	public Purchase(int cod, double price, Article article, User user, int quantity) throws PurchaseException {
+	public Purchase(Article article, User user, double price, int quantity) throws PurchaseException {
 		super();
-		this.cod = cod;
-		this.setPrice(price);
 		this.setArticle(article);
 		this.setUser(user);
 		this.date = LocalDate.now();
+		this.setPrice(price);
 		this.setQuantity(quantity);
 	}
 
 
-	public int getCod() {
-		return cod;
-	}
-
-
-	public void setCod(int cod) {
-		this.cod = cod;
-	}
 
 
 	public double getPrice() {
@@ -123,13 +116,14 @@ public class Purchase {
 	public double getTotalPrice() {
 		return this.price * this.quantity;
 	}
-	
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(cod);
+		return Objects.hash(article, date, user);
 	}
 
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -139,13 +133,17 @@ public class Purchase {
 		if (getClass() != obj.getClass())
 			return false;
 		Purchase other = (Purchase) obj;
-		return cod == other.cod;
+		return Objects.equals(article, other.article) && Objects.equals(date, other.date)
+				&& Objects.equals(user, other.user);
 	}
 
 
 	@Override
 	public String toString() {
-		return "Purchase [cod=" + cod + ", price=" + price + ", article=" + article + ", user=" + user + ", date="
-				+ date + "]";
+		return "Purchase [article=" + article + ", user=" + user + ", date=" + date + ", price=" + price + ", quantity="
+				+ quantity + "]";
 	}
+	
+	
+	
 }

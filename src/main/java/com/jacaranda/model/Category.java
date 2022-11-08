@@ -4,9 +4,10 @@ package com.jacaranda.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -15,6 +16,7 @@ import javax.persistence.Table;
 @Table(name="category")
 public class Category {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cod;
 	private String name;
 	private String description;
@@ -29,9 +31,8 @@ public class Category {
 	}
 
 	
-	public Category(int cod, String name, String description) throws CategoryException {
+	public Category(String name, String description) throws CategoryException {
 		super();
-		this.cod = cod;
 		this.setName(name);
 		this.setDescription(description);
 		this.articles = new ArrayList<>();

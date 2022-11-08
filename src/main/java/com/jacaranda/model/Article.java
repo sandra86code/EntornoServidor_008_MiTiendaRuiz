@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,6 +17,7 @@ import javax.persistence.Table;
 @Table(name="article")
 public class Article {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cod;
 	private String name;
 	private String description;
@@ -34,9 +37,8 @@ public class Article {
 		super();
 	}
 	
-	public Article(int cod, String name, String description, double price, Category category) throws ArticleException {
+	public Article(String name, String description, double price, Category category) throws ArticleException {
 		super();
-		this.cod = cod;
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
