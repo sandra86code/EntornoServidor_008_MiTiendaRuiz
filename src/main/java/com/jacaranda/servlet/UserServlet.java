@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -110,6 +111,12 @@ public class UserServlet extends HttpServlet {
 							}
 							response.setContentType("text/html;charset=UTF-8");
 							response.setCharacterEncoding("UTF-8");
+							
+//							HttpSession session = request.getSession();
+//							String isSession = (String) session.getAttribute("login");
+//							String userSession = (String) session.getAttribute("nick");
+							
+							
 							response.getWriter().append(htmlPart1 + cssTable + htmlPart2 + tableCloseButton + htmlPart3 + 
 									"<p>Usuario: " + request.getParameter("nick") + "</p>" + htmlPart4 + htmlTable + td.toString() + "</tbody></table></div></div></div></body></html>");
 						}else {

@@ -1,21 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import ="com.jacaranda.model.Category" %>
-<%-- <%@ page import ="com.jacaranda.control.DaoCategory" %> --%>
+<%@ page import ="com.jacaranda.control.DaoCategory" %>
+<%@ page import ="java.util.Iterator" %>
+<%@ page import ="java.util.ArrayList" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Appify - Registro</title>
-<link rel="stylesheet" href="css/reg_style.css">
+<title>Appify - Añadir producto</title>
+<link rel="stylesheet" href="css/addarticle_style.css">
 
 </head>
 <body>
-<% session.invalidate(); %>
+	
+<%-- 	<% 
+	HttpSession se = request.getSession();
+	String isSession = (String) session.getAttribute("login");
+	String userSession = (String) session.getAttribute("user");
+	if(isSession != null && userSession !=null && isSession.equals("True")){
+		
+	%> --%>
 	
 	<div class="wrapper">
 		<div class="close_session">
-			<input type=\"button\" onclick=\"location.href='index.jsp';\" value=\"Volver al login\" />"
+			<input type="button" onclick="location.href='index.jsp';" value="Volver al login" />
 		</div>
 		<div class="page_name">
 			<img src="img/logo.png"/>
@@ -25,7 +35,8 @@
 			String nick = request.getParameter("nick");
 			if(nick!=null) {
 				%>
-				<p>Usuario:<%=nick%></p>
+				<p>Usuario: <%=nick%></p>
+				<p>Rol: <i>admin</i></p>
 			<%
 			}
 			%>
@@ -39,49 +50,42 @@
 					<form class="login_form" id="loginForm" action="addArticlePersist.jsp" method="post">
 						<label class="login_label" for="category">Categoría</label>
 						<select name="category">
-						<%-- <%
-						ArrayList<Category> categories = DaoCategory.getArticles();
+						<%
+						ArrayList<Category> categories = DaoCategory.getCategories();
 						if(categories!=null) {
 							%>
-							<option disabled selected>--Elige tu sexo--</option>
+							<option disabled>--Elige una categoría--</option>
 							<%
 							Iterator<Category> it = categories.iterator();
 							while(it.hasNext()){
 								Category c = it.next();
-								
-								
+								%>
+								<option value="<%=c.getCod()%>"><%=c.getName()%></option>
+								<%
 							}
 						}
-						%> --%>
-						
-						
-						
+						%>
 						</select>
-						
-						
-						<input type="text" minlength="3" maxlength="20" placeholder="Introduce un nombre de usuario" name="nick" required>
-						<label class="login_label" for="password">Contraseña</label>
-						<input type="password" minlength="5" maxlength="20" placeholder="Introduce una contraseña" name="password" required>
-						<label class="login_label" for="name">Nombre</label>
-						<input type="text" minlength="2" maxlength="30" placeholder="Introduce tu nombre" name="name" required>
-						<label class="login_label" for="surname">Apellidos</label>
-						<input type="text" minlength="2" maxlength="60" placeholder="Introduce tu/s apellido/s" name="surname" required>
-						<label class="login_label" for="birth_date">Fecha de nacimiento</label>
-						<input type="date" name="birth_date" min='1899-01-01' max='2000-13-13' required><br>
-						<label class="login_label" for="sex">Sexo</label>
-						<select name="sex" id="sex" required>
-                            <option disabled selected>--Elige tu sexo--</option>
-                            <option value="M">Mujer</option>
-                            <option value="H">Hombre</option>
-                        </select><br>
-                        <input type="hidden" name="admin" value="false">
+						<label class="login_label" for="name">Nombre del artículo</label>
+						<input type="text" minlength="2" maxlength="50" placeholder="Introduce el nombre del artículo" name="name" required>
+						<label class="login_label" for="description">Descripción del artículo</label>
+						<textarea minlength="2" maxlength="120" name="description" required></textarea>
+						<label class="login_label" for="price">Precio del artículo</label>
+						<input type="number" name="price" min='0.01' step="0.01" required><br>
+						<label class="login_label" for="image">Imagen (bmp, jpg, png)</label>
+						<input type="file" name="image" accept=".bmp, .jpg, .png" required><br>
 						<button type="submit" id="loginButton" class="login_button">Enviar</button>
 						<button type="reset" id="resetButton" class="login_button">Borrar</button>
-						<input type="button" onclick="location.href='index.jsp';" value="Volver al login" />
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
+<%-- 	<%
+	}else {
+		%>
+		<jsp:forward
+			page="error.jsp?msg='No te has autenticado'"></jsp:forward>
+	<%}%> --%>
 </body>
 </html>
