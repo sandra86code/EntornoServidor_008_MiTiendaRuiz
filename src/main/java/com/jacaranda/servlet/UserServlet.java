@@ -1,11 +1,8 @@
 package com.jacaranda.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator; 
-import javax.servlet.*;  
-import javax.servlet.http.*;  
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -91,34 +88,37 @@ public class UserServlet extends HttpServlet {
 			String encriptedPassword = DigestUtils.md5Hex(password);
 			try {
 				if(DaoUser.userIsValid(nick, encriptedPassword)) {
-					ArrayList<Article> articles = null;
-
-					articles = DaoArticle.getArticles();
-					if(articles!=null) {
-						StringBuilder td = new StringBuilder();
-						Iterator<Article> it = articles.iterator();
-						while(it.hasNext()){
-							Article a = it.next();
-							td.append("<tr>"
-									+ "<td>" + a.getCod() + "</td>"
-									+ "<td>" + a.getName() + "</td>"
-									+ "<td>" + a.getDescription() + "</td>"
-									+ "<td>" + a.getPrice() + " €</td>"
-									+ "<td>" + a.getCategory().getName() + "</td>"
-									+ "<td><a href=\"buyProduct.jsp?cod=" + a.getCod() + "\"><img src=\"img/shop.png\" class=\"shop\"/></td>"
-									+ "</tr>");	
-						}
-						response.setContentType("text/html;charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");
-						response.getWriter().append(htmlPart1 + cssTable + htmlPart2 + tableCloseButton + htmlPart3 + 
-								"<p>Usuario: " + request.getParameter("nick") + "</p>" + htmlPart4 + htmlTable + td.toString() + "</tbody></table></div></div></div></body></html>");
+					if(DaoUser.isUserAdmin(nick)) {
+						response.sendRedirect("addArticle.jsp?nick=" + nick);
 					}else {
-						response.setContentType("text/html;charset=UTF-8");
-						response.setCharacterEncoding("UTF-8");
-						response.getWriter().append(htmlPart1 + cssTable + htmlPart2 + tableCloseButton + htmlPart3 + 
-								"<p>Usuario: " + request.getParameter("nick") + "</p>" + htmlPart4 + htmlTable + "</table></div></div></div></body></html>");
-					}
+						ArrayList<Article> articles = null;
 
+						articles = DaoArticle.getArticles();
+						if(articles!=null) {
+							StringBuilder td = new StringBuilder();
+							Iterator<Article> it = articles.iterator();
+							while(it.hasNext()){
+								Article a = it.next();
+								td.append("<tr>"
+										+ "<td>" + a.getCod() + "</td>"
+										+ "<td>" + a.getName() + "</td>"
+										+ "<td>" + a.getDescription() + "</td>"
+										+ "<td>" + a.getPrice() + " €</td>"
+										+ "<td>" + a.getCategory().getName() + "</td>"
+										+ "<td><a href=\"buyProduct.jsp?cod=" + a.getCod() + "\"><img src=\"img/shop.png\" class=\"shop\"/></td>"
+										+ "</tr>");	
+							}
+							response.setContentType("text/html;charset=UTF-8");
+							response.setCharacterEncoding("UTF-8");
+							response.getWriter().append(htmlPart1 + cssTable + htmlPart2 + tableCloseButton + htmlPart3 + 
+									"<p>Usuario: " + request.getParameter("nick") + "</p>" + htmlPart4 + htmlTable + td.toString() + "</tbody></table></div></div></div></body></html>");
+						}else {
+							response.setContentType("text/html;charset=UTF-8");
+							response.setCharacterEncoding("UTF-8");
+							response.getWriter().append(htmlPart1 + cssTable + htmlPart2 + tableCloseButton + htmlPart3 + 
+									"<p>Usuario: " + request.getParameter("nick") + "</p>" + htmlPart4 + htmlTable + "</table></div></div></div></body></html>");
+						}
+					}
 				}else {
 					response.setContentType("text/html;charset=UTF-8");
 					response.setCharacterEncoding("UTF-8");

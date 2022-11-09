@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import ="com.jacaranda.model.Category" %>
+<%-- <%@ page import ="com.jacaranda.control.DaoCategory" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,20 +15,50 @@
 	
 	<div class="wrapper">
 		<div class="close_session">
+			<input type=\"button\" onclick=\"location.href='index.jsp';\" value=\"Volver al login\" />"
 		</div>
 		<div class="page_name">
 			<img src="img/logo.png"/>
 		</div>
 		<div class="user_name">
+			<%
+			String nick = request.getParameter("nick");
+			if(nick!=null) {
+				%>
+				<p>Usuario:<%=nick%></p>
+			<%
+			}
+			%>
 		</div>
 		<div class="content">
 			<div class="login">
 				<div class="login_title">
-					<h1>Registrarse</h1>
+					<h1>Añadir artículo</h1>
 				</div>
 				<div class="form">
-					<form class="login_form" id="loginForm" action="checkRegistration" method="post">
-						<label class="login_label" for="nick">Usuario</label>
+					<form class="login_form" id="loginForm" action="addArticlePersist.jsp" method="post">
+						<label class="login_label" for="category">Categoría</label>
+						<select name="category">
+						<%-- <%
+						ArrayList<Category> categories = DaoCategory.getArticles();
+						if(categories!=null) {
+							%>
+							<option disabled selected>--Elige tu sexo--</option>
+							<%
+							Iterator<Category> it = categories.iterator();
+							while(it.hasNext()){
+								Category c = it.next();
+								
+								
+							}
+						}
+						%> --%>
+						
+						
+						
+						</select>
+						
+						
 						<input type="text" minlength="3" maxlength="20" placeholder="Introduce un nombre de usuario" name="nick" required>
 						<label class="login_label" for="password">Contraseña</label>
 						<input type="password" minlength="5" maxlength="20" placeholder="Introduce una contraseña" name="password" required>

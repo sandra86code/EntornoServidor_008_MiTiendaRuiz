@@ -58,6 +58,20 @@ public class DaoUser {
 		return result;
 	}
 	
+	
+	public static boolean isUserAdmin(String nick) throws DaoException {
+		boolean result = false;
+		try {
+			User u = getUser(nick);
+			if(u.isAdmin()) {
+				result = true;
+			}
+		}catch(DaoException e) {
+			throw new DaoException("El usuario es nulo.");
+		}
+		return result;
+	}
+	
 	public static boolean addUser(String nick, String encriptedPassword, String name, String surname, 
 			LocalDate birthDate, char sex, boolean admin) throws DaoException {
 		boolean result = false;
