@@ -24,7 +24,7 @@
 					<h1>Entrar</h1>
 				</div>
 				<div class="form">
-					<form class="login_form" id="loginForm"action="checkuser" method="post">
+					<form class="login_form" id="loginForm" action="CheckUser" method="post">
 						<label class="login_label" for="nick">Usuario</label>
 						<input type="text" minlength="5" maxlength="20" placeholder="Introduce tu nombre de usuario" name="nick" required>
 						<label class="login_label" for="user">Contraseña</label>

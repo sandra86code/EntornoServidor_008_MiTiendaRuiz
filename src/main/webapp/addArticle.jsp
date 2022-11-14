@@ -15,13 +15,7 @@
 </head>
 <body>
 	
-<%-- 	<% 
-	HttpSession se = request.getSession();
-	String isSession = (String) session.getAttribute("login");
-	String userSession = (String) session.getAttribute("user");
-	if(isSession != null && userSession !=null && isSession.equals("True")){
-		
-	%> --%>
+
 	
 	<div class="wrapper">
 		<div class="close_session">
@@ -47,9 +41,9 @@
 					<h1>Añadir artículo</h1>
 				</div>
 				<div class="form">
-					<form class="login_form" id="loginForm" action="addArticlePersist.jsp" method="post">
+					<form class="login_form" id="loginForm" action="addArticlePersist.jsp?nick=<%=nick%>" method="post">
 						<label class="login_label" for="category">Categoría</label>
-						<select name="category">
+						<select name="category" required>
 						<%
 						ArrayList<Category> categories = DaoCategory.getCategories();
 						if(categories!=null) {
@@ -81,11 +75,6 @@
 			</div>
 		</div>
 	</div>
-<%-- 	<%
-	}else {
-		%>
-		<jsp:forward
-			page="error.jsp?msg='No te has autenticado'"></jsp:forward>
-	<%}%> --%>
+
 </body>
 </html>

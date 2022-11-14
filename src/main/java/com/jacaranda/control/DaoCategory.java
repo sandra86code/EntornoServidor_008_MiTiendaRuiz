@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-
 import com.jacaranda.model.Category;
 
 public class DaoCategory {
@@ -14,6 +13,14 @@ public class DaoCategory {
 		
 	}
 	
+	public static Category getCategory(int cod) throws DaoException {
+		Session session = ConnectionDB.getSession();
+		Category category = (Category) session.get(Category.class, cod);
+		if(category==null) {
+			throw new DaoException("No existe el articulo");
+		}
+		return category;
+	}
 	
 	public static ArrayList<Category> getCategories() {
 		Session session = ConnectionDB.getSession();
