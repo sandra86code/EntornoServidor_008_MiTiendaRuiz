@@ -20,12 +20,13 @@ public class ConnectionDB {
 	private static SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
 	private static Session session = sf.openSession();
 	
-	/**
-	 * Método que obtiene la sesión en la base de datos
-	 * @return la sesión en la base de datos
-	 */
-	public static Session getSession() {
-		return session;
+
+	public static Session getSession() throws DaoException {
+		try {
+			return session;
+		}catch(Exception e) {
+			throw new DaoException("Error de conexión con la base de datos. Consulte con el administrador.");
+		}
 	}
 	
 }

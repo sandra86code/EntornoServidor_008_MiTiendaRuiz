@@ -2,6 +2,7 @@ package com.jacaranda.control;
 
 import java.util.ArrayList;
 import org.hibernate.Session;
+import org.hibernate.exception.SQLGrammarException;
 import org.hibernate.query.Query;
 
 
@@ -19,25 +20,42 @@ public class DaoArticle {
 	}
 	
 	public static Article getArticle(int cod) throws DaoException {
-		Session session = ConnectionDB.getSession();
-		Article article =(Article) session.get(Article.class, cod);
-		if(article==null) {
-			throw new DaoException("No existe el articulo");
+		Article article = null;
+		try {
+			Session session = ConnectionDB.getSession();
+			article =(Article) session.get(Article.class, cod);
+			if(article==null) {
+				throw new DaoException("No existe el articulo");
+			}
+		}catch(Exception e) {
+			throw new DaoException(e.getMessage());
 		}
 		return article;
 	}
 	
-	public static ArrayList<Article> getArticles() {
-		Session session = ConnectionDB.getSession();
-		String hql = "SELECT cod, name, description, price, category_id FROM article a";
-		Query<Article> query = session.createNativeQuery(hql, Article.class);
-		ArrayList<Article> articles = (ArrayList<Article>) query.getResultList();
+	public static ArrayList<Article> getArticles() throws DaoException {
+		ArrayList<Article> articles;
+		try {
+			Session session = ConnectionDB.getSession();
+			String hql = "SELECT cod, name, description, price, category_id, image FROM article a";
+			Query<Article> query = session.createNativeQuery(hql, Article.class);
+			articles = (ArrayList<Article>) query.getResultList();
+		}catch(DaoException e) {
+			throw new DaoException(e.getMessage());
+		}catch(SQLGrammarException e) {
+			throw new DaoException("Error en la conexión con la base de datos.");
+		}
 		return articles;          
 	}
 	
 	public static boolean addArticle(Article article, Category category) throws DaoException {
 		boolean result = false;
-		Session session = ConnectionDB.getSession();
+		Session session = null;
+		try {
+			session = ConnectionDB.getSession();
+		}catch(DaoException e) {
+			throw new DaoException(e.getMessage());
+		}
 		if(article==null) {
 			throw new DaoException("Articulo nulo");
 		}

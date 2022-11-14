@@ -42,7 +42,7 @@ public class CheckUserServlet extends HttpServlet {
 				}else {
 					response.sendRedirect("error.jsp?msg=La contraseña no es correcta");
 				}
-			}catch(DaoException e) {
+			}catch(Exception e) {
 				String message = e.getMessage();
 				response.sendRedirect("error.jsp?msg=" + message);
 			}

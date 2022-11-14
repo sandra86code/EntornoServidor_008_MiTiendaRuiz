@@ -18,11 +18,17 @@ public class DaoUser {
 	
 
 	public static User getUser(String nick) throws DaoException {
-		Session session = ConnectionDB.getSession();
-		User result = (User)session.get(User.class, nick);
-		if(result == null) {
-			throw new DaoException("Usuario no encontrado");
+		User result = null;
+		try {
+			Session session = ConnectionDB.getSession();
+			result = (User)session.get(User.class, nick);
+			if(result == null) {
+				throw new DaoException("Usuario no encontrado");
+			}
+		}catch(Exception e) {
+			throw new DaoException(e.getMessage());
 		}
+		
 		return result;
 	}
 	
@@ -34,7 +40,7 @@ public class DaoUser {
 			if(u.getPassword().equals(encriptedPassword)) {
 				result = true;
 			}
-		}catch(DaoException e) {
+		}catch(Exception e) {
 			throw new DaoException(e.getMessage());
 		}
 		return result;
@@ -57,12 +63,15 @@ public class DaoUser {
 	public static boolean addUser(String nick, String encriptedPassword, String name, String surname, 
 			LocalDate birthDate, char sex, boolean admin) throws DaoException {
 		boolean result = false;
-		Session session = ConnectionDB.getSession();
+		Session session = null;
 		try {
+			session = ConnectionDB.getSession();
 			User u = new User(nick, encriptedPassword, name, surname, birthDate, sex, admin);
 			session.getTransaction().begin();
 			session.save(u);
 			session.getTransaction().commit();
+		}catch (DaoException e) {
+			throw new DaoException(e.getMessage());
 		}catch(UserException e) {
 			throw new DaoException(e.getMessage());
 		}catch(Exception e) {

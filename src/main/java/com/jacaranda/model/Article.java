@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +23,7 @@ public class Article {
 	private String name;
 	private String description;
 	private double price;
+	@Column(name="image")
 	private String fileName;
 	@ManyToOne
 	@JoinColumn(name="category_id")
