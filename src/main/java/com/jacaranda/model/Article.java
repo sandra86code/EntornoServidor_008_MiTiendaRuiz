@@ -24,7 +24,7 @@ public class Article {
 	private String description;
 	private double price;
 	@Column(name="image")
-	private String fileName;
+	private String fileExtension;
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
@@ -47,7 +47,7 @@ public class Article {
 		this.setDescription(description);
 		this.setPrice(price);
 		this.setCategory(category);
-		this.setFileName(fileExtension);
+		this.setFileExtension(fileExtension);
 		this.purchases = new ArrayList<>();
 	}
 	
@@ -120,19 +120,23 @@ public class Article {
 
 	
 
-	public String getFileName() {
-		return fileName;
+	public String getFileExtension() {
+		return fileExtension;
 	}
 
-	public void setFileName(String fileExtension) throws ArticleException {
+	public void setFileExtension(String fileExtension) throws ArticleException {
 		if(fileExtension==null || fileExtension.isBlank() || fileExtension.isEmpty() ||
 				(!fileExtension.equalsIgnoreCase("bmp") && !fileExtension.equalsIgnoreCase("png") &&
 				!fileExtension.equalsIgnoreCase("jpg"))) {
 			throw new ArticleException("Extension de fichero incorrecta.");
 		}
-		this.fileName = "../img" + String.valueOf(cod) + "." + fileExtension.toLowerCase();
+		this.fileExtension = fileExtension.toLowerCase();
 	}
-
+	
+	public String getFileName() {
+		return "img" + String.valueOf(this.cod) + "." + this.fileExtension;
+	}
+	
 	public void setPurchases(List<Purchase> purchases) throws ArticleException {
 		if(purchases==null) {
 			throw new ArticleException("Lista de compras incorrecta");

@@ -17,11 +17,11 @@
 </head>
 <body>
 	<% 
-	HttpSession session = request.getSession();
-	String isSession = (String) session.getAttribute("login");
-	String userSession = (String) session.getAttribute("nick");
-	if(isSession != null && userSession !=null && isSession.equals("True")){
-		String genre = request.getParameter("genre");
+	HttpSession sessionsa = request.getSession();
+	String isSession = (String) sessionsa.getAttribute("login");
+	String userSession = (String) sessionsa.getAttribute("nick");
+	if(isSession != null && userSession !=null && isSession.equals("true")){
+		
 	%>
 
 	
@@ -56,7 +56,7 @@
 							ArrayList<Category> categories = DaoCategory.getCategories();
 							if(categories!=null) {
 								%>
-								<option disabled>--Elige una categoría--</option>
+								<option disabled selected>--Elige una categoría--</option>
 								<%
 								Iterator<Category> it = categories.iterator();
 								while(it.hasNext()){
@@ -78,6 +78,7 @@
 							<input type="file" name="image" accept=".bmp, .jpg, .png" required><br>
 							<button type="submit" id="loginButton" class="login_button">Enviar</button>
 							<button type="reset" id="resetButton" class="login_button">Borrar</button>
+							<button type="link" id="returnButton" class="login_button" onclick="location.href='ShowArticles?nick=<%=nick%>'">Volver</button>
 						</form>
 					</div>
 				</div>

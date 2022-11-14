@@ -1,7 +1,10 @@
 package com.jacaranda.control;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
+
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import com.jacaranda.model.User;
 import com.jacaranda.model.UserException;
@@ -17,21 +20,16 @@ public class DaoUser {
 	
 	
 
-	public static User getUser(String nick) throws DaoException {
-		User result = null;
-		try {
-			Session session = ConnectionDB.getSession();
-			result = (User)session.get(User.class, nick);
-			if(result == null) {
-				throw new DaoException("Usuario no encontrado");
-			}
-		}catch(Exception e) {
-			throw new DaoException(e.getMessage());
+	public static User getUser(String nick) throws DaoException, HibernateException {
+		Session session = ConnectionDB.getSession();
+		User result = (User)session.get(User.class, nick);
+		if(result == null) {
+			throw new DaoException("Usuario no encontrado");
 		}
-		
+
 		return result;
 	}
-	
+
 
 	public static boolean userIsValid(String nick, String encriptedPassword) throws DaoException {
 		boolean result = false;
@@ -40,8 +38,10 @@ public class DaoUser {
 			if(u.getPassword().equals(encriptedPassword)) {
 				result = true;
 			}
-		}catch(Exception e) {
-			throw new DaoException(e.getMessage());
+		}catch (HibernateException e) {
+			throw new DaoException("42 - Error en la conexion con la BBDD");
+		}catch (DaoException f) { 
+			throw new DaoException("44 - " + f.getMessage());
 		}
 		return result;
 	}
@@ -54,6 +54,8 @@ public class DaoUser {
 			if(u.isAdmin()) {
 				result = true;
 			}
+		}catch (HibernateException e) {
+			throw new DaoException("58 - Error en la conexion con la BBDD");
 		}catch(DaoException e) {
 			throw new DaoException("El usuario es nulo.");
 		}
@@ -70,12 +72,14 @@ public class DaoUser {
 			session.getTransaction().begin();
 			session.save(u);
 			session.getTransaction().commit();
-		}catch (DaoException e) {
-			throw new DaoException(e.getMessage());
-		}catch(UserException e) {
-			throw new DaoException(e.getMessage());
-		}catch(Exception e) {
-			session.getTransaction().rollback();
+		}catch (HibernateException e) {
+			throw new DaoException("Error en la conexion con la BBDD");
+		}catch(UserException f) {
+			throw new DaoException(f.getMessage());
+		}catch(Exception g) {
+			if(session.isOpen()) {
+				session.getTransaction().rollback();
+			}
 			throw new DaoException("Usuario repetido.");
 		}
 		return result;

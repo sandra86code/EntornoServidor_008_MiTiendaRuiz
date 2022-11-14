@@ -1,5 +1,10 @@
 package com.jacaranda.control;
 
+
+import java.net.ConnectException;
+import java.sql.SQLException;
+
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -18,15 +23,25 @@ public class ConnectionDB {
 	 */
 	private static StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
 	private static SessionFactory sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
-	private static Session session = sf.openSession();
+	private static Session session;
 	
-
-	public static Session getSession() throws DaoException {
-		try {
-			return session;
-		}catch(Exception e) {
-			throw new DaoException("Error de conexión con la base de datos. Consulte con el administrador.");
+	
+//	public static SessionFactory getSessionFactory() {
+//		sf 
+//		if(sf==null) {
+//			
+//		}
+//		return sf;
+//	}
+	
+	public static Session getSession() throws HibernateException {
+		if(sf==null) {
+			throw new HibernateException("Error en la conexión con la base de datos");
 		}
+		if(session ==null || !session.isOpen()) {
+			session = sf.openSession();
+		}
+		return session;
 	}
 	
 }

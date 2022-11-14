@@ -18,12 +18,11 @@
 </head>
 <body>
 	<%
-	HttpSession session = request.getSession();
-	String isSession = (String) session.getAttribute("login");
-	String userSession = (String) session.getAttribute("nick");
-	if(isSession != null && userSession !=null && isSession.equals("True")){
+	HttpSession sessionsa = request.getSession();
+	String isSession = (String) sessionsa.getAttribute("login");
+	String userSession = (String) sessionsa.getAttribute("nick");
+	if(isSession != null && userSession !=null && isSession.equals("true")){
 		
-		String genre = request.getParameter("genre");
 		String nick = request.getParameter("nick");
 		String cId = request.getParameter("category");
 		String name = request.getParameter("name");
@@ -33,14 +32,15 @@
 		
 		if(nick==null || cId == null || name == null || description == null || p == null || image == null) {
 			%>
-			<jsp:forward page="index.jsp" /> 
-				 <jsp:param name="msg" value="Valores incorrectos. Vuelve a intentarlo."/>
+			<jsp:forward page="addArticleError.jsp"> 
+				 <jsp:param name="nick" value="<%=nick%>"/>
+				 <jsp:param name="msg" value="Valores incorrectos. Vuelve a intentarlo"/>
 			</jsp:forward>
 			<%
 		}else {
 			try {
 				Category category = DaoCategory.getCategory(Integer.parseInt(cId));
-				int price = Integer.parseInt(p);
+				double price = Double.parseDouble(p);
 				if(image.contains(".")) {
 					String[] parts = image.split(Pattern.quote("."));
 					String imageExtension = parts[parts.length-1];
@@ -48,14 +48,15 @@
 					boolean result = DaoArticle.addArticle(article, category);
 					if(result) {
 						%>
-						<jsp:forward page="ShowArticles" />
+						<jsp:forward page="ShowArticles">
 							<jsp:param name="nick" value="<%=nick%>"/>
 						</jsp:forward>
 						<%
 					}
 				}else {
 					%>
-					<jsp:forward page="index.jsp" /> 
+					<jsp:forward page="addArticleError.jsp"> 
+						 <jsp:param name="nick" value="<%=nick%>"/>
 						 <jsp:param name="msg" value="La imagen no tiene extensión"/>
 					</jsp:forward>
 					<%
@@ -63,7 +64,8 @@
 			}catch (Exception e) {
 				String message = e.getMessage();
 				%>
-				<jsp:forward page="index.jsp" /> 
+				<jsp:forward page="addArticleError.jsp"> 
+					 <jsp:param name="nick" value="<%=nick%>"/>
 					 <jsp:param name="msg" value="<%=message%>"/>
 				</jsp:forward>
 				<%

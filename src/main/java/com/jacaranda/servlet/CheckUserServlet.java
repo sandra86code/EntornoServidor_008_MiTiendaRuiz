@@ -37,10 +37,11 @@ public class CheckUserServlet extends HttpServlet {
 		}else {
 			String encriptedPassword = DigestUtils.md5Hex(password);
 			try {
-				if(DaoUser.userIsValid(nick, encriptedPassword)) {
+				boolean isUserValid = DaoUser.userIsValid(nick, encriptedPassword);
+				if(isUserValid) {
 					response.sendRedirect("ShowArticles?nick=" + nick);
 				}else {
-					response.sendRedirect("error.jsp?msg=La contraseña no es correcta");
+					response.sendRedirect("error.jsp?msg=Password incorrecto");
 				}
 			}catch(Exception e) {
 				String message = e.getMessage();

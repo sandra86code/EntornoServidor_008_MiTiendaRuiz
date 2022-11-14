@@ -59,7 +59,7 @@ public class ShowArticlesServlet extends HttpServlet {
 					+ "<p>Usuario: " + nick + "</p>"
 					+ "</div>"
 					+ "<div class=\"content\">";
-			String buttonAdmin = "<div class=\"admin_buttons\">"
+			String buttonAdmin = "<div class=\"admin_button\">"
 					+ "<input type=\"button\" onclick=\"location.href='addArticle.jsp?nick=" + nick + "';\" value=\"Añadir artículo\" />"
 					+ "</div><br>";
 			String htmlPart2User = "<div class=\"table\">"

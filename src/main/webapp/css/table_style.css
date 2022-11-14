@@ -17,6 +17,8 @@ body {
         ". . .";
 }
 
+
+
 .close_session {
 	display: grid;
     grid-area: close_session;
@@ -67,11 +69,16 @@ body {
     grid-area: content;
     background-color: #A3C7D6;
     grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: 30px 2fr 30px;
+    grid-template-rows: 100px 2fr 30px;
     grid-template-areas:
-        ". . ."
+        ". admin_button ."
         ". table ."
         ". . .";
+}
+
+.admin_button {
+	grid-area: admin_button;
+	margin: auto;
 }
 
 .table {
@@ -150,7 +157,7 @@ table {
 table td,
 table th,
 table tr {
-    padding: 1rem 1rem;
+    padding: 0.7rem 0.7rem;
     text-align: center;
 }
 
