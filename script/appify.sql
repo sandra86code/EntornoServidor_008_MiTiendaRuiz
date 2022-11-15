@@ -46,6 +46,7 @@ CREATE TABLE `appify`.`users` (
 --
 
 INSERT INTO `appify`.`users` (`nick`, `password`, `name`, `surname`, `birth_date`, `sex`, `admin`) VALUES
+('sandra86code', '36d0dbae93bab78f9ef80c9215fc7245 ', 'Sandra', 'Ruiz Jimenez', '1986-04-13', 'M', 1),
 ('acator5h', '4d00b383a488d947282f31e61dcf8681', 'Yú', 'Cator', '1936-02-18', 'M', 0),
 ('agillow4', '1af337078639f57eaada34e2bf692d39', 'Nadège', 'Gillow', '2003-04-13', 'H', 0),
 ('cchippindale5l', '5e49124f243a8f15636c75be0095d97c', 'Méng', 'Chippindale', '1982-01-06', 'H', 0),
