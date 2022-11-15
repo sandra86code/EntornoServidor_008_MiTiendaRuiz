@@ -108,7 +108,7 @@ public class Article {
 	
 	public void setCategory(Category category) throws ArticleException {
 		if(category==null) {
-			throw new ArticleException("Categoria incorrecta");
+			throw new ArticleException("Categoria nula");
 		}
 		this.category = category;
 	}

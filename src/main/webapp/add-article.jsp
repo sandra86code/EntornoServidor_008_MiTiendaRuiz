@@ -18,13 +18,11 @@
 <body>
 	<% 
 	HttpSession sessionsa = request.getSession();
-	String isSession = (String) sessionsa.getAttribute("login");
-	String userSession = (String) sessionsa.getAttribute("nick");
-	if(isSession != null && userSession !=null && isSession.equals("true")){
-		
-	%>
-
-	
+	String login = (String) sessionsa.getAttribute("login");
+	String nick = (String) sessionsa.getAttribute("nick");
+	String admin = (String) sessionsa.getAttribute("admin");
+	if(login != null && nick !=null && login.equals("true")) {
+		if(admin.equals("true")) {%>
 		<div class="wrapper">
 			<div class="close_session">
 				<input type="button" onclick="location.href='index.jsp';" value="Volver al login" />
@@ -33,15 +31,8 @@
 				<img src="img/logo.png"/>
 			</div>
 			<div class="user_name">
-				<%
-				String nick = request.getParameter("nick");
-				if(nick!=null) {
-					%>
-					<p>Usuario: <%=nick%></p>
-					<p>Rol: <i>admin</i></p>
-				<%
-				}
-				%>
+				<p>Usuario: <%=nick%></p>
+				<p>Rol: <i>admin</i></p>
 			</div>
 			<div class="content">
 				<div class="login">
@@ -49,7 +40,7 @@
 						<h1>Añadir artículo</h1>
 					</div>
 					<div class="form">
-						<form class="login_form" id="loginForm" action="addArticlePersist.jsp?nick=<%=nick%>" method="post">
+						<form class="login_form" id="loginForm" action="add-article-persist.jsp" method="post">
 							<label class="login_label" for="category">Categoría</label>
 							<select name="category" required>
 							<%
@@ -61,12 +52,9 @@
 								Iterator<Category> it = categories.iterator();
 								while(it.hasNext()){
 									Category c = it.next();
-									%>
-									<option value="<%=c.getCod()%>"><%=c.getName()%></option>
-									<%
+									%><option value="<%=c.getCod()%>"><%=c.getName()%></option><%
 								}
-							}
-							%>
+							}%>
 							</select>
 							<label class="login_label" for="name">Nombre del artículo</label>
 							<input type="text" minlength="2" maxlength="50" placeholder="Introduce el nombre del artículo" name="name" required>
@@ -78,15 +66,17 @@
 							<input type="file" name="image" accept=".bmp, .jpg, .png" required><br>
 							<button type="submit" id="loginButton" class="login_button">Enviar</button>
 							<button type="reset" id="resetButton" class="login_button">Borrar</button>
-							<button type="link" id="returnButton" class="login_button" onclick="location.href='ShowArticles?nick=<%=nick%>'">Volver</button>
+							<button type="link" id="returnButton" class="login_button" onclick="location.href='show-articles'">Volver</button>
 						</form>
 					</div>
 				</div>
 			</div>
-	</div>
-	<%}else {%>
-	<jsp:forward
-		page="error.jsp?msg='No te has autenticado'"></jsp:forward>
+		</div>
+		<%}else {%>
+			<jsp:forward page="error-permissions.jsp?msg='No eres administrador'"></jsp:forward>
+		<%}
+	}else {%>
+		<jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward>
 <%}%>
 
 </body>

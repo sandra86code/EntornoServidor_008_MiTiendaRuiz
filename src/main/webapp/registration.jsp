@@ -26,7 +26,7 @@
 					<h1>Registrarse</h1>
 				</div>
 				<div class="form">
-					<form class="login_form" id="loginForm" action="checkRegistration" method="post">
+					<form class="login_form" id="loginForm" action="check-registration" method="post">
 						<label class="login_label" for="nick">Usuario</label>
 						<input type="text" minlength="3" maxlength="20" placeholder="Introduce un nombre de usuario" name="nick" required>
 						<label class="login_label" for="password">Contraseña</label>

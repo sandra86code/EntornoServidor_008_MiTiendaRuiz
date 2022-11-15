@@ -59,6 +59,8 @@ public class User {
 	public void setNick(String nick) throws UserException {
 		if(nick==null || nick.isEmpty() || nick.isBlank() || nick.length()<3 || nick.length()>30) {
 			throw new UserException("Nick incorrecto");
+		}if(nick.contains(" ")) {
+			throw new UserException("Nick incorrecto. No puede contener espacios");
 		}
 		this.nick = nick;
 	}
