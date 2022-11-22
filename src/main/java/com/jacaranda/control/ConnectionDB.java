@@ -14,28 +14,45 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  */
 public class ConnectionDB {
 	
-	/**
-	 * Atributos estáticos porque son compartidos por todos los objetos
-	 */
-	private static StandardServiceRegistry sr = new StandardServiceRegistryBuilder().configure().build();
-	private static SessionFactory sf = null;
-	private static Session session;
+	
+	private StandardServiceRegistry sr;
+	private SessionFactory sf;
+	private Session session;
 	
 	
 
 	
-	public static Session getSession() throws DaoException {
-		if(sf==null) {
-			try {
-				sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
-			}catch(Exception e) {
-				throw new DaoException("Error de base de datos");
-			}
+	public ConnectionDB() throws DaoException {
+		super();
+		this.sr = new StandardServiceRegistryBuilder().configure().build();
+		if(this.sr==null) {
+			throw new DaoException("Error en la base de datos");
 		}
-		if(session ==null || !session.isOpen()) {
-			session = sf.openSession();
+		this.sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
+		if(this.sf==null) {
+			throw new DaoException("Error en la base de datos");
 		}
+		this.session = sf.openSession();
+		if(this.session==null) {
+			throw new DaoException("Error en la base de datos");
+		}
+	}
+
+	
+	public boolean closeSession() throws DaoException {
+		boolean result = false;
+		if(this.session!=null && this.session.isOpen()) {
+			this.session.close();
+			result = true;
+		}else {
+			throw new DaoException("Error en la base de datos");
+		}
+		return result;
+			
+	}
+
+	
+	public Session getSession() {
 		return session;
 	}
-	
 }

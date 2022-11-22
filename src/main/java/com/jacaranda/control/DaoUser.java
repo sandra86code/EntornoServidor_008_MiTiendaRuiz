@@ -16,11 +16,11 @@ public class DaoUser {
 	
 	
 	public static User getUser(String nick) throws DaoException {
-		Session session = null;
 		User user = null;
 		try {
-			session = ConnectionDB.getSession();
-			user = (User)session.get(User.class, nick);
+			ConnectionDB connection = new ConnectionDB();
+			Session session = connection.getSession();
+			user = session.get(User.class, nick);
 			if(user == null) {
 				throw new DaoException("Usuario no encontrado");
 			}
@@ -65,18 +65,25 @@ public class DaoUser {
 		boolean result = false;
 		Session session = null;
 		try {
-			session = ConnectionDB.getSession();
+			ConnectionDB connection = new ConnectionDB();
+			session = connection.getSession();
 			User u = new User(nick, encriptedPassword, name, surname, birthDate, sex, admin);
 			session.getTransaction().begin();
 			session.save(u);
 			session.getTransaction().commit();
+			session.close();
+			result = true;
 		}catch (DaoException e) {
 			throw new DaoException(e.getMessage());
 		}catch(UserException f) {
+			if(session!=null && session.isOpen()) {
+				session.close();
+			}
 			throw new DaoException(f.getMessage());
 		}catch(Exception g) {
 			if(session!=null && session.isOpen()) {
 				session.getTransaction().rollback();
+				session.close();
 			}
 			throw new DaoException("Usuario repetido.");
 		}

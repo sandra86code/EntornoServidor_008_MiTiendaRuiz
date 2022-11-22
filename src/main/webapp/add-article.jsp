@@ -31,8 +31,10 @@
 				<img src="img/logo.png"/>
 			</div>
 			<div class="user_name">
-				<p>Usuario: <%=nick%></p>
-				<p>Rol: <i>admin</i></p>
+				<div class="usericon">
+					<img class="icon" src="img/user.png"/>
+					<p> <%=nick %> </p>
+				</div>
 			</div>
 			<div class="content">
 				<div class="login">
@@ -40,11 +42,11 @@
 						<h1>Añadir artículo</h1>
 					</div>
 					<div class="form">
-						<form class="login_form" id="loginForm" action="add-article-persist.jsp" method="post">
+						<form class="login_form" id="loginForm" action="add-article" method="post" enctype="multipart/form-data">
 							<label class="login_label" for="category">Categoría</label>
 							<select name="category" required>
 							<%
-							ArrayList<Category> categories = DaoCategory.getCategories();
+							ArrayList<Category> categories = (ArrayList<Category>)DaoCategory.getCategories();
 							if(categories!=null) {
 								%>
 								<option disabled selected>--Elige una categoría--</option>
@@ -62,6 +64,8 @@
 							<textarea minlength="2" maxlength="120" name="description" required></textarea>
 							<label class="login_label" for="price">Precio del artículo</label>
 							<input type="number" name="price" min='0.01' step="0.01" required><br>
+							<label class="login_label" for="quantity">Cantidad de artículos</label>
+							<input type="number" name="quantity" min='1' required><br>
 							<label class="login_label" for="image">Imagen (bmp, jpg, png)</label>
 							<input type="file" name="image" accept=".bmp, .jpg, .png" required><br>
 							<button type="submit" id="loginButton" class="login_button">Enviar</button>

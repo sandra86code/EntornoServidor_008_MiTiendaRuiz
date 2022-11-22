@@ -1,6 +1,8 @@
 package com.jacaranda.control;
 
+import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import com.jacaranda.model.Article;
@@ -16,32 +18,38 @@ public class DaoArticle {
 	}
 	
 	public static Article getArticle(int cod) throws DaoException {
-		Session session = null;
 		Article article = null;
 		try {
-			session = ConnectionDB.getSession();
-			article = (Article) session.get(Article.class, cod);
+			ConnectionDB connection = new ConnectionDB();
+			Session session = connection.getSession();
+			article = session.get(Article.class, cod);
+			session.close();
 			if(article==null) {
 				throw new DaoException("No existe el articulo");
 			}
 		}catch(DaoException e) {
 			throw new DaoException(e.getMessage());
 		}
-		
 		return article;
 	}
 	
 	
-	public static ArrayList<Article> getArticles() throws DaoException {
+	public static List<Article> getArticles() throws DaoException {
 		ArrayList<Article> articles;
+		Session session = null;
 		try {
-			Session session = ConnectionDB.getSession();
-			String hql = "SELECT cod, name, description, price, category_id, image FROM article a";
+			ConnectionDB connection = new ConnectionDB();
+			session = connection.getSession();
+			String hql = "SELECT cod, name, description, price, quantity, category_id, image FROM article a";
 			Query<Article> query = session.createNativeQuery(hql, Article.class);
 			articles = (ArrayList<Article>) query.getResultList();
+			session.close();
 		}catch(DaoException e) {
 			throw new DaoException(e.getMessage());
 		}catch(Exception f) {
+			if(session!=null && session.isOpen()) {
+				session.close();
+			}
 			throw new DaoException(f.getMessage());
 		}
 		return articles;          
@@ -49,24 +57,30 @@ public class DaoArticle {
 	
 	
 	public static boolean addArticle(String name, String description, double price, 
-			String fileExtension, Category category) throws DaoException {
+			int quantity, Blob image, Category category) throws DaoException {
 		boolean result = false;
-		Session session = null; 
+		Session session = null;
 		try {
-			session = ConnectionDB.getSession();
-			Article article = new Article(name, description, price, fileExtension, category);
+			ConnectionDB connection = new ConnectionDB();
+			session = connection.getSession();
+			Article article = new Article(name, description, price, quantity, image, category);
 			article.setCategory(category);
 			session.getTransaction().begin();
 			session.save(article);
 			session.getTransaction().commit();
+			session.close();
 			result = true;
 		}catch(DaoException e) {
 			throw new DaoException(e.getMessage());
 		}catch(ArticleException f) {
+			if(session!=null && session.isOpen()) {
+				session.close();
+			}
 			throw new DaoException(f.getMessage());
 		}catch(Exception g) {
 			if(session!=null && session.isOpen()) {
 				session.getTransaction().rollback();
+				session.close();
 			}
 			throw new DaoException("Articulo repetido.");
 		}

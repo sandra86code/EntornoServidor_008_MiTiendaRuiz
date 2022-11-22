@@ -1,7 +1,7 @@
 package com.jacaranda.model;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -14,17 +14,19 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="purchase")
-@IdClass(Purchase.class)
-public class Purchase implements Serializable {
+@IdClass(PurchaseId.class)
+public class Purchase {
 	@Id
 	@ManyToOne
-	@JoinColumn(name="article_id")
+	@JoinColumn(name="article_id", insertable = false, updatable = false)
 	private Article article;
+	@Id
 	@ManyToOne
-	@JoinColumn(name="user_nick")
+	@JoinColumn(name="user_nick", insertable = false, updatable = false)
 	private User user;
+	@Id
 	@Column(name="purchase_date")
-	private LocalDate date;
+	private LocalDateTime date;
 	@Column(name="article_price")
 	private double price;
 	private int quantity;
@@ -36,11 +38,11 @@ public class Purchase implements Serializable {
 	}
 
 
-	public Purchase(Article article, User user, double price, int quantity) throws PurchaseException {
+	public Purchase(Article article, User user, LocalDateTime date, double price, int quantity) throws PurchaseException {
 		super();
 		this.setArticle(article);
 		this.setUser(user);
-		this.date = LocalDate.now();
+		this.setDate(date);
 		this.setPrice(price);
 		this.setQuantity(quantity);
 	}
@@ -87,13 +89,14 @@ public class Purchase implements Serializable {
 	}
 
 
-	public LocalDate getDate() {
+	
+	public LocalDateTime getDate() {
 		return date;
 	}
 
 
-	public void setDate(LocalDate date) throws PurchaseException {
-		if(date==null || date.isAfter(LocalDate.now())) {
+	public void setDate(LocalDateTime date) throws PurchaseException {
+		if(date==null || date.isAfter(LocalDateTime.now())) {
 			throw new PurchaseException("Fecha incorrecta");
 		}
 		this.date = date;

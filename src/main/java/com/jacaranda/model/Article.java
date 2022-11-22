@@ -1,9 +1,11 @@
 package com.jacaranda.model;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,13 +25,13 @@ public class Article {
 	private String name;
 	private String description;
 	private double price;
-	@Column(name="image")
-	private String fileExtension;
+	private int quantity;
+	private Blob image;
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
 	
-	@OneToMany(mappedBy="article")
+	@OneToMany(mappedBy="article", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Purchase> purchases;
 	
 	
@@ -40,14 +42,15 @@ public class Article {
 		super();
 	}
 	
-	public Article(String name, String description, double price, String fileExtension, 
-			Category category) throws ArticleException {
+	public Article(String name, String description, double price, int quantity, 
+			Blob image, Category category) throws ArticleException {
 		super();
 		this.setName(name);
 		this.setDescription(description);
 		this.setPrice(price);
+		this.setQuantity(quantity);
 		this.setCategory(category);
-		this.setFileExtension(fileExtension);
+		this.image = image;
 		this.purchases = new ArrayList<>();
 	}
 	
@@ -101,6 +104,26 @@ public class Article {
 	}
 	
 	
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) throws ArticleException {
+		if(quantity<0) {
+			throw new ArticleException("Cantidad incorrecta");
+		}
+		this.quantity = quantity;
+	}
+
+	public Blob getImage() {
+		return image;
+	}
+	
+	
+	public void setImage(Blob image) {
+		this.image = image;
+	}
+
 	public Category getCategory() {
 		return category;
 	}
@@ -118,24 +141,6 @@ public class Article {
 		return purchases;
 	}
 
-	
-
-	public String getFileExtension() {
-		return fileExtension;
-	}
-
-	public void setFileExtension(String fileExtension) throws ArticleException {
-		if(fileExtension==null || fileExtension.isBlank() || fileExtension.isEmpty() ||
-				(!fileExtension.equalsIgnoreCase("bmp") && !fileExtension.equalsIgnoreCase("png") &&
-				!fileExtension.equalsIgnoreCase("jpg"))) {
-			throw new ArticleException("Extension de fichero incorrecta.");
-		}
-		this.fileExtension = fileExtension.toLowerCase();
-	}
-	
-	public String getFileName() {
-		return "img" + String.valueOf(this.cod) + "." + this.fileExtension;
-	}
 	
 	public void setPurchases(List<Purchase> purchases) throws ArticleException {
 		if(purchases==null) {
