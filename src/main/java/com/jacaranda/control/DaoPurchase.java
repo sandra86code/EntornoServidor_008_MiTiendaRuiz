@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import com.jacaranda.cart.Cart;
 import com.jacaranda.cart.CartItem;
+import com.jacaranda.model.Article;
 import com.jacaranda.model.Purchase;
 import com.jacaranda.model.PurchaseException;
 
@@ -29,10 +30,13 @@ public class DaoPurchase {
 		try {
 			ConnectionDB connection = new ConnectionDB();
 			session = connection.getSession();
-			Purchase purchase = new Purchase(cartItem.getArticle(), DaoUser.getUser(nick), 
-					LocalDateTime.now(), cartItem.getArticle().getPrice(), cartItem.getQuantity());
+			Article article = cartItem.getArticle();
+			Purchase purchase = new Purchase(article, DaoUser.getUser(nick), 
+					LocalDateTime.now(), article.getPrice(), cartItem.getQuantity());
+			article.setQuantity(article.getQuantity()-cartItem.getQuantity());
 			session.getTransaction().begin();
 			session.save(purchase);
+			session.update(article);
 			session.getTransaction().commit();
 			session.close();
 			result = true;

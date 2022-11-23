@@ -294,7 +294,6 @@ input[type="submit"] {
     font-weight: bold;
     line-height: 1.5;
     margin: 0.5rem 0;
-    padding: 1rem 2rem;
 }
 
 button.modify_quantity {
@@ -337,7 +336,6 @@ input[type="button"] {
     font-weight: bold;
     line-height: 1.5;
     margin: auto;
-    padding: 1rem 2rem;
 }
 
 

@@ -43,6 +43,18 @@ public class Article {
 	}
 	
 	public Article(String name, String description, double price, int quantity, 
+			Category category) throws ArticleException {
+		super();
+		this.setName(name);
+		this.setDescription(description);
+		this.setPrice(price);
+		this.setQuantity(quantity);
+		this.setCategory(category);
+		this.image = null;
+		this.purchases = new ArrayList<>();
+	}
+	
+	public Article(String name, String description, double price, int quantity, 
 			Blob image, Category category) throws ArticleException {
 		super();
 		this.setName(name);
@@ -50,7 +62,7 @@ public class Article {
 		this.setPrice(price);
 		this.setQuantity(quantity);
 		this.setCategory(category);
-		this.image = image;
+		this.setImage(image);
 		this.purchases = new ArrayList<>();
 	}
 	
@@ -120,7 +132,10 @@ public class Article {
 	}
 	
 	
-	public void setImage(Blob image) {
+	public void setImage(Blob image) throws ArticleException {
+		if(image==null) {
+			throw new ArticleException("Imagen nula");
+		}
 		this.image = image;
 	}
 

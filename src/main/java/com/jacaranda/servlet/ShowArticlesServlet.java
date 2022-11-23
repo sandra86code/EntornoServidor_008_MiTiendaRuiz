@@ -13,9 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import com.jacaranda.cart.Cart;
-import com.jacaranda.cart.CartExpection;
 import com.jacaranda.control.DaoArticle;
-import com.jacaranda.control.DaoException;
 import com.jacaranda.control.DaoUser;
 import com.jacaranda.model.Article;
 import com.jacaranda.model.User;
@@ -116,9 +114,6 @@ public class ShowArticlesServlet extends HttpServlet {
 				}
 			}catch(Exception e) {
 				String message = e.getMessage();
-				if(message.contains("%")) {
-					message = "Error en la base de datos";
-				}
 				response.sendRedirect("error.jsp?msg=" + message);
 				return;
 			}
@@ -150,23 +145,22 @@ public class ShowArticlesServlet extends HttpServlet {
 					}
 					td.append("</div>"
 							+ "<div class=\"buy\">");
-					if(a.getQuantity()==0) {
+					
+					if(!isAdmin && a.getQuantity()==0) {
 						td.append("</div></div>");
+					}else if (!isAdmin){
+						td.append("<form class=\"add-article-to-cart\" action=\"add-article-to-cart.jsp\" method=\"post\">"
+								+ "<label for=\"quantity\"><b>Cantidad</b></label>"
+								+ "<input type=\"number\" name=\"quantity\" min=\"1\" max=\"" + a.getQuantity() + "\" required />"
+								+ "<input type=\"hidden\" name=\"id_article\" value=\"" + a.getCod() + "\">"
+								+ "<button type=\"submit\" class=\"login_button\">Añadir al carrito</button>"
+								+ "</form>"
+								+ "</div></div>");
 					}else {
-						if(!isAdmin) {
-							td.append("<form class=\"add-article-to-cart\" action=\"add-article-to-cart.jsp\" method=\"post\">"
-									+ "<label for=\"quantity\"><b>Cantidad</b></label>"
-									+ "<input type=\"number\" name=\"quantity\" min=\"1\" max=\"" + a.getQuantity() + "\" required />"
-									+ "<input type=\"hidden\" name=\"id_article\" value=\"" + a.getCod() + "\">"
-									+ "<button type=\"submit\" class=\"login_button\">Añadir al carrito</button>"
-									+ "</form>"
-									+ "</div></div>");
-						}else {
-							td.append("<div class=\"icons\">"
-									+ "<a class=\"edit\" href=\"edit-article.jsp?cod='" + a.getCod() + "'\"><img src=\"img/edit.png\" class=\"shop\"/></a>"
-									+ "<a href=\"delete-article.jsp?cod='" + a.getCod() + "'\"><img src=\"img/delete.png\" class=\"shop\"/></a>"
-									+ "</div></div></div>");
-						}
+						td.append("<div class=\"icons\">"
+								+ "<a class=\"edit\" href=\"edit-article.jsp?cod=" + a.getCod() + "\"><img src=\"img/edit.png\" class=\"shop\"/></a>"
+								+ "<a href=\"delete-article.jsp?cod=" + a.getCod() + "\"><img src=\"img/delete.png\" class=\"shop\"/></a>"
+								+ "</div></div></div>");
 					}
 				}
 			}

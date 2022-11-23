@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Cart {
 	
 	private ArrayList<CartItem> cartItems = new ArrayList<>();
-
+	final double DECIMALES = 100.0;
 	
 	public Cart() {
 		super();
@@ -30,7 +30,7 @@ public class Cart {
 				totalPrice += item.getPriceItem();
 			}
 		}
-		return totalPrice;
+		return Math.round(totalPrice*DECIMALES)/DECIMALES;
 	}
 	
 	public ArrayList<CartItem> getCartItems() {

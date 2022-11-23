@@ -15,6 +15,7 @@
 HttpSession sessionsa = request.getSession();
 String login = (String) sessionsa.getAttribute("login");
 String nick = (String) sessionsa.getAttribute("nick");
+String admin = (String) sessionsa.getAttribute("admin");
 Cart cart = (Cart) sessionsa.getAttribute("cart");
 if(login != null && nick !=null && login.equals("true") && cart!=null) {
 	try {
@@ -24,7 +25,6 @@ if(login != null && nick !=null && login.equals("true") && cart!=null) {
 		}
 		for(CartItem cartItem : cartItems) {
 			DaoPurchase.addPurchase(cartItem, nick);
-			//Falta descontar los elementos que compra del stock y persistirlo en la bbdd
 		}
 		cart.emptyCart();
 		%><jsp:forward page="buy-success.jsp?msg=Gracias por comprar en Appify"></jsp:forward><%

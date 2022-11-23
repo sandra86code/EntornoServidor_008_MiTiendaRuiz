@@ -17,6 +17,8 @@ public class DaoArticle {
 		super();
 	}
 	
+	
+	
 	public static Article getArticle(int cod) throws DaoException {
 		Article article = null;
 		try {
@@ -85,5 +87,53 @@ public class DaoArticle {
 			throw new DaoException("Articulo repetido.");
 		}
 		return result;
+	}
+	
+	public static void deleteArticle(int cod) throws DaoException {
+		Session session = null;
+		try {
+			ConnectionDB connection = new ConnectionDB();
+			session = connection.getSession();
+			Article article = getArticle(cod);
+			session.getTransaction().begin();
+			session.delete(article);
+			session.getTransaction().commit();
+			session.close();
+		}catch(DaoException e) {
+			if(session!=null && session.isOpen()) {
+				session.close();
+			}
+			throw new DaoException(e.getMessage());
+		}catch(Exception g) {
+			if(session!=null && session.isOpen()) {
+				session.getTransaction().rollback();
+				session.close();
+			}
+			throw new DaoException("Articulo repetido.");
+		}
+	}
+	
+	public static void editArticle(int cod, Article modifiedArticle) throws DaoException {
+		Session session = null;
+		try {
+			ConnectionDB connection = new ConnectionDB();
+			session = connection.getSession();
+			Article article = getArticle(cod);
+			session.getTransaction().begin();
+			session.update(article);
+			session.getTransaction().commit();
+			session.close();
+		}catch(DaoException e) {
+			if(session!=null && session.isOpen()) {
+				session.close();
+			}
+			throw new DaoException(e.getMessage());
+		}catch(Exception g) {
+			if(session!=null && session.isOpen()) {
+				session.getTransaction().rollback();
+				session.close();
+			}
+			throw new DaoException("Articulo repetido.");
+		}
 	}
 }
