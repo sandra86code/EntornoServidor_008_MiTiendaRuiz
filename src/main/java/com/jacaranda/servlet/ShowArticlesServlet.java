@@ -225,12 +225,19 @@ public class ShowArticlesServlet extends HttpServlet {
 				+ "</tr>"
 				+ "</thead>"
 				+ "<tbody>";
-		String htmlPart4 = "</div></div></div><script src=\"script/delete-article.js\"></script></body></html>";
+		String htmlPart4Admin = "</tbody>"
+				+ "</table>";
+		String htmlPart4 = "</div>"
+				+ "</div>"
+				+ "</div>"
+				+ "<script src='script/delete-article.js'></script>"
+				+ "</body>"
+				+ "</html>";
 		
 		try {
 			if(isAdmin) {
 				String tdAdmin = getArticlesAdmin();
-				response.getWriter().append(htmlPart1 + htmlPart2 + buttonAdmin + htmlPart3Admin + tdAdmin + htmlPart4);
+				response.getWriter().append(htmlPart1 + htmlPart2 + buttonAdmin + htmlPart3Admin + tdAdmin + htmlPart4Admin + htmlPart4);
 			}else {
 				String tdUser = getArticlesUser();
 				response.getWriter().append(htmlPart1 + chart + htmlPart2 + titleUser + htmlPart3User + tdUser + htmlPart4);
