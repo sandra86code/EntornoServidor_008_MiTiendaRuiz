@@ -27,9 +27,9 @@ Cart cart = (Cart) sessionsa.getAttribute("cart");
 if(login != null && nick !=null && login.equals("true") && cart!=null) {
 	if(admin.equals("false")) {
 		try {
-			User user = DaoUser.getUser(nick);
-			ArrayList<Purchase> purchases = (ArrayList<Purchase>)user.getPurchases();
-			/* ArrayList<Purchase> purchases = (ArrayList<Purchase>)DaoPurchase.getPurchases(nick); */
+			/* User user = DaoUser.getUser(nick);
+			ArrayList<Purchase> purchases = (ArrayList<Purchase>)user.getPurchases(); */
+			ArrayList<Purchase> purchases = (ArrayList<Purchase>)DaoPurchase.getPurchases(nick);
 			if(purchases.size()==0) {
 				%><jsp:forward page="error.jsp?redirect=show-articles&msg=Aun no ha realizado ninguna compra"></jsp:forward><%
 			}else {

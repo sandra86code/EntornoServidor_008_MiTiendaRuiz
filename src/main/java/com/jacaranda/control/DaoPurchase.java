@@ -23,7 +23,7 @@ public class DaoPurchase {
 		super();
 	}
 
-	public static boolean addArticle(CartItem cartItem, String nick) throws DaoException {
+	public static boolean addPurchase(CartItem cartItem, String nick) throws DaoException {
 		boolean result = false;
 		Session session = null;
 		if(cartItem==null) {
