@@ -65,8 +65,12 @@ public class DaoArticle {
 		try {
 			ConnectionDB connection = new ConnectionDB();
 			session = connection.getSession();
-			Article article = new Article(name, description, price, quantity, image, category);
-			article.setCategory(category);
+			Article article = null;
+			if(image!=null) {
+				article = new Article(name, description, price, quantity, image, category);
+			}else {
+				article = new Article(name, description, price, quantity, category);
+			}
 			session.getTransaction().begin();
 			session.save(article);
 			session.getTransaction().commit();
@@ -113,14 +117,70 @@ public class DaoArticle {
 		}
 	}
 	
+	public static Article modifyArticle(Article article, Article modifiedArticle) throws DaoException {
+		if(article!=null && modifiedArticle!=null) {
+			//Nombre
+			if(!article.getName().equals(modifiedArticle.getName())) {
+				try {
+					article.setName(modifiedArticle.getName());
+				} catch (ArticleException e) {
+					throw new DaoException(e.getMessage());
+				}
+			}
+			//Descripción
+			if(!article.getDescription().equals(modifiedArticle.getDescription())) {
+				try {
+					article.setDescription(modifiedArticle.getDescription());
+				} catch (ArticleException e) {
+					throw new DaoException(e.getMessage());
+				}
+			}
+			//Cantidad
+			if(article.getQuantity()!=modifiedArticle.getQuantity()) {
+				try {
+					article.setQuantity(modifiedArticle.getQuantity());
+				} catch (ArticleException e) {
+					throw new DaoException(e.getMessage());
+				}
+			}
+			//Precio
+			if(article.getPrice()!=modifiedArticle.getPrice()) {
+				try {
+					article.setPrice(modifiedArticle.getPrice());
+				} catch (ArticleException e) {
+					throw new DaoException(e.getMessage());
+				}
+			}
+			//Categoría
+			if(!article.getCategory().equals(modifiedArticle.getCategory())) {
+				try {
+					article.setCategory(modifiedArticle.getCategory());
+				} catch (ArticleException e) {
+					throw new DaoException(e.getMessage());
+				}
+			}
+			//Imagen
+			if((article.getImage()==null && modifiedArticle.getImage()!=null)
+					|| (article.getImage()!=null && modifiedArticle.getImage()!=null)) {
+				try {
+					article.setImage(modifiedArticle.getImage());
+				} catch (ArticleException e) {
+					throw new DaoException(e.getMessage());
+				}
+			}
+		}
+		return article;
+	}
+	
 	public static void editArticle(int cod, Article modifiedArticle) throws DaoException {
 		Session session = null;
 		try {
 			ConnectionDB connection = new ConnectionDB();
 			session = connection.getSession();
 			Article article = getArticle(cod);
+			Article newArticle = modifyArticle(article, modifiedArticle);
 			session.getTransaction().begin();
-			session.update(article);
+			session.update(newArticle);
 			session.getTransaction().commit();
 			session.close();
 		}catch(DaoException e) {

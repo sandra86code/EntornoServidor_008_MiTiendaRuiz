@@ -28,11 +28,11 @@ if(login != null && nick !=null && login.equals("true") && cart!=null) {
 			<%
 		}catch(Exception e) {
 			String message = e.getMessage();
-			%><jsp:forward page="error_cart.jsp?msg='<%=message%>'"></jsp:forward><%
+			%><jsp:forward page="error.jsp?redirect=show-cart&msg=<%=message%>"></jsp:forward><%
 		}	
 	}
 }else {%>
-	<jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward>
+	<jsp:forward page="error.jsp?redirect=index&msg=No te has autenticado"></jsp:forward>
 <%}%>
 </body>
 </html>

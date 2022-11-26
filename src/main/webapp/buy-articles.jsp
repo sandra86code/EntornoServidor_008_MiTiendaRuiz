@@ -18,22 +18,26 @@ String nick = (String) sessionsa.getAttribute("nick");
 String admin = (String) sessionsa.getAttribute("admin");
 Cart cart = (Cart) sessionsa.getAttribute("cart");
 if(login != null && nick !=null && login.equals("true") && cart!=null) {
-	try {
-		ArrayList<CartItem> cartItems = cart.getCartItems();
-		if(cartItems.size()==0) {
-			%><jsp:forward page="error_cart.jsp?msg='Carrito vacío'"></jsp:forward><%
+	if(admin.equals("false")) {
+		try {
+			ArrayList<CartItem> cartItems = cart.getCartItems();
+			if(cartItems.size()==0) {
+				%><jsp:forward page="error.jsp?redirect=show-cart&msg=Carrito vacio"></jsp:forward><%
+			}
+			for(CartItem cartItem : cartItems) {
+				DaoPurchase.addPurchase(cartItem, nick);
+			}
+			cart.emptyCart();
+			%><jsp:forward page="buy-success.jsp?msg=Gracias por comprar en Appify"></jsp:forward><%
+		}catch(Exception e) {
+			String message = e.getMessage();
+			%><jsp:forward page="error.jsp?redirect=show-cart&msg=<%=message%>"></jsp:forward><%
 		}
-		for(CartItem cartItem : cartItems) {
-			DaoPurchase.addPurchase(cartItem, nick);
-		}
-		cart.emptyCart();
-		%><jsp:forward page="buy-success.jsp?msg=Gracias por comprar en Appify"></jsp:forward><%
-	}catch(Exception e) {
-		String message = e.getMessage();
-		%><jsp:forward page="error_cart.jsp?msg='<%=message%>'"></jsp:forward><%
-	}	
+	}else {
+		%><jsp:forward page="error.jsp?redirect=show-articles&msg=No tienes carrito"></jsp:forward><%
+	}
 }else {%>
-	<jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward>
+	<jsp:forward page="error.jsp?redirect=index&msg=No te has autenticado"></jsp:forward>
 <%}%>
 </body>
 </html>

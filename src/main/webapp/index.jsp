@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Appify - Login</title>
+<link rel="stylesheet" href="css/grid.css">
 <link rel="stylesheet" href="css/login_style.css">
 </head>
 <body>
@@ -30,8 +31,8 @@
 						<input type="text" minlength="5" maxlength="20" placeholder="Introduce tu nombre de usuario" name="nick" required>
 						<label class="login_label" for="user">Contraseña</label>
 						<input type="password" minlength="5" maxlength="20" placeholder="Introduce tu contraseña" name="password" required>
-						<button type="submit" id="loginButton" class="login_button">Enviar</button>
 						<button type="reset" id="resetButton" class="login_button">Borrar</button>
+						<button type="submit" id="loginButton" class="login_button">Enviar</button>
 						<div class="register_link">
 							<a href="registration.jsp">¿No tienes cuenta? REGÍSTRATE</a>
 						</div>

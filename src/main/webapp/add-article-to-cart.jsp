@@ -32,17 +32,17 @@
 					myCart.addCartItem(cartItem);
 					%><jsp:forward page="show-articles"></jsp:forward><%
 				}else {
-					%><jsp:forward page="error-permissions.jsp?msg='La cantidad es mayor que el stock'"></jsp:forward><%
+					%><jsp:forward page="error.jsp?redirect=show-articles&msg='La cantidad es mayor que el stock'"></jsp:forward><%
 				}
 			}catch(Exception e) {
 				String message = e.getMessage();
-				%><jsp:forward page="error-permissions.jsp?msg='<%=message%>'"></jsp:forward><%
+				%><jsp:forward page="error.jsp?redirect=show-articles&msg=<%=message%>"></jsp:forward><%
 			}
 		}else {%>
-			<jsp:forward page="error-permissions.jsp?msg='Datos erróneos'"></jsp:forward><%
+			<jsp:forward page="error.jsp?redirect=show-articles&msg=Datos erróneos"></jsp:forward><%
 		}
 	}else {%>
-		<jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward>
+		<jsp:forward page="error.jsp?redirect=index&msg='No te has autenticado'"></jsp:forward>
 	<%}%>
 </body>
 </html>

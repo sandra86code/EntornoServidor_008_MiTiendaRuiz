@@ -51,13 +51,13 @@ public class RegistrationServlet extends HttpServlet {
 				    response.sendRedirect("index.jsp");  
 				}catch(Exception e) {
 					String message = e.getMessage();
-					response.sendRedirect("registration-error.jsp?msg=" + message);
+					response.sendRedirect("error.jsp?redirect=registration&msg=" + message);
 				}
 			}else {
-				response.sendRedirect("registration-error.jsp?msg=Password incorrecto");
+				response.sendRedirect("error.jsp?redirect=registration&msg=Password incorrecto");
 			}
 		}else {
-			response.sendRedirect("registration-error.jsp?msg=Datos incorrectos");
+			response.sendRedirect("error.jsp?redirect=registration&msg=Datos incorrectos");
 		}
 	}
 

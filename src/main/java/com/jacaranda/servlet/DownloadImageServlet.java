@@ -33,7 +33,6 @@ public class DownloadImageServlet extends HttpServlet {
      */
     public DownloadImageServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -57,11 +56,11 @@ public class DownloadImageServlet extends HttpServlet {
 					outputStream.write(blobFiles);
 				}catch(Exception e) {
 					String message = e.getMessage();
-					response.sendRedirect("error.jsp?msg='" + message + "'");
+					response.sendRedirect("error.jsp?redirect=index&msg='" + message + "'");
 			}
 				
 		}else {
-			response.sendRedirect("error.jsp?msg='No te has autenticado'");
+			response.sendRedirect("error.jsp?redirect=index&msg='No te has autenticado'");
 		}
 	}
 	}
@@ -70,7 +69,6 @@ public class DownloadImageServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -12,7 +12,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Appify - Añadir producto</title>
-<link rel="stylesheet" href="css/addarticle_style.css">
+<link rel="stylesheet" href="css/grid.css">
+<link rel="stylesheet" href="css/reg_style.css">
 
 </head>
 <body>
@@ -25,7 +26,7 @@
 		if(admin.equals("true")) {%>
 		<div class="wrapper">
 			<div class="close_session">
-				<input type="button" onclick="location.href='index.jsp';" value="Volver al login" />
+				<a href='index.jsp'><img src='img/close-session.png' class='close-button'/></a>
 			</div>
 			<div class="page_name">
 				<img src="img/logo.png"/>
@@ -43,7 +44,7 @@
 					</div>
 					<div class="form">
 						<form class="login_form" id="loginForm" action="add-article" method="post" enctype="multipart/form-data">
-							<label class="login_label" for="category">Categoría</label>
+							<label class="login_label" for="category">Categoría*</label>
 							<select name="category" required>
 							<%
 							ArrayList<Category> categories = (ArrayList<Category>)DaoCategory.getCategories();
@@ -58,29 +59,30 @@
 								}
 							}%>
 							</select>
-							<label class="login_label" for="name">Nombre del artículo</label>
+							<label class="login_label" for="name">Nombre*</label>
 							<input type="text" minlength="2" maxlength="50" placeholder="Introduce el nombre del artículo" name="name" required>
-							<label class="login_label" for="description">Descripción del artículo</label>
-							<textarea minlength="2" maxlength="120" name="description" required></textarea>
-							<label class="login_label" for="price">Precio del artículo</label>
+							<label class="login_label" for="description">Descripción*</label>
+							<textarea minlength="2" maxlength="120" name="description" cols="45" required></textarea>
+							<label class="login_label" for="price">Precio*</label>
 							<input type="number" name="price" min='0.01' step="0.01" required><br>
-							<label class="login_label" for="quantity">Cantidad de artículos</label>
+							<label class="login_label" for="quantity">Cantidad*</label>
 							<input type="number" name="quantity" min='1' required><br>
 							<label class="login_label" for="image">Imagen (bmp, jpg, png)</label>
-							<input type="file" name="image" accept=".bmp, .jpg, .png" required><br>
-							<button type="submit" id="loginButton" class="login_button">Enviar</button>
+							<input type="file" name="image" accept=".bmp, .jpg, .png"><br>
+							
+							<input type="button" onclick="location.href='show-articles';" value="Volver" />
 							<button type="reset" id="resetButton" class="login_button">Borrar</button>
-							<button type="link" id="returnButton" class="login_button" onclick="location.href='show-articles'">Volver</button>
+							<button type="submit" id="loginButton" class="login_button">Enviar</button>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 		<%}else {%>
-			<jsp:forward page="error-permissions.jsp?msg='No eres administrador'"></jsp:forward>
+			<jsp:forward page="error.jsp?redirect=show-articles&msg=No eres administrador"></jsp:forward>
 		<%}
 	}else {%>
-		<jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward>
+		<jsp:forward page="error.jsp?redirect=index&msg=No te has autenticado"></jsp:forward>
 <%}%>
 
 </body>

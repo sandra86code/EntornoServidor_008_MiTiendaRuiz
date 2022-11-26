@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+/* */
+body {
+    margin: 0;
+    background-color: #A3C7D6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+
+/* Contenedor */
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 150px 25px 4fr 25px;
+    grid-template-areas:
+        " page_name page_name user_name close_session"
+        ". . . ."
+        "content content content content"
+        ". . . .";
+}
+
+/* Cabecera, parte icono pagina */
+.page_name {
+	display: grid;
+    grid-area: page_name;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+/* Cabecera, parte nombre de usuario */
+.user_name {
+	display: grid;
+    grid-area: user_name;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #fff;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+/* Cabecera cierre de sesión */
+.close_session {
+	display: grid;
+    grid-area: close_session;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: #fff;
+    width: 100%;
+	height: 100%;
+	margin: auto;
+}
+
+
+/* Cabecera, foto icono pagina */
+.page_name img {
+	width: 300px;
+	margin: auto;
+}
+
+/* Cabecera, cierre sesión */
+.close_session a {
+	margin: auto;
+}
+
+/* Cabecera, Icono cierre sesión */
+.close-button {
+	height: 100px;
+}
+
+/* Cabecera, usuario y carrito*/
+.user_name {
+	grid: "usericon charticon"	
+}
+
+/* Cabecera, Icono usuario */
+.usericon {
+	height: 100%;
+	margin-top: 45px;
+}
+
+/* Cabecera, Icono carrito */
+.charticon {
+	height: 100%;
+	margin-top: 45px;
+}
+
+/* Tamaño iconos carrito y usuario */
+img.icon {
+	height: 50px;
+	
+}
+
+/* Cabecera, nombre usuario*/
+.user_name p {
+	margin-top: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: auto;
+	color: #624F82;
+}
+

@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Appify - Error</title>
+<link rel="stylesheet" href="css/grid.css">
 <link rel="stylesheet" href="css/error_style.css">
 </head>
 <body>
@@ -24,9 +25,13 @@
 				}
 				%>
 				<h2><%=message%></h2>
-				<input type="button" onclick="location.href='index.jsp';" value="Volver" />
+				<%String redirect = request.getParameter("redirect");
+				if(redirect.equals("show-articles")) {
+					%><input type="button" onclick="location.href='show-articles';" value="Volver" /><%
+				}else {
+					%><input type="button" onclick="location.href='<%=redirect%>.jsp';" value="Volver" /><%
+				}%>
 			</div>
-	
 		</div>
 	</div>
 </body>

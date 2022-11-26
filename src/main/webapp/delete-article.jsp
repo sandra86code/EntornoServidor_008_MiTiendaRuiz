@@ -23,17 +23,17 @@
 					%><jsp:forward page="show-articles"></jsp:forward><%
 				}catch(Exception e) {
 					String message = e.getMessage();
-					%><jsp:forward page="error-permissions.jsp?msg=<%=message%>"></jsp:forward><%
+					%><jsp:forward page="error.jsp?redirect=show-articles&msg=<%=message%>"></jsp:forward><%
 				}
 				
 			}else {
-				%><jsp:forward page="error-permissions.jsp?msg=Error. No existe el código de artículo"></jsp:forward><%
+				%><jsp:forward page="error.jsp?redirect=show-articles&msg=Error. No existe el código de artículo"></jsp:forward><%
 			}
 		}else {%>
-			<jsp:forward page="error-permissions.jsp?msg='No eres administrador'"></jsp:forward>
+			<jsp:forward page="error.jsp?redirect=show-articles&msg=No eres administrador"></jsp:forward>
 		<%}
 	}else {%>
-		<jsp:forward page="error.jsp?msg='No te has autenticado'"></jsp:forward>
+		<jsp:forward page="error.jsp?redirect=index&msg=No te has autenticado"></jsp:forward>
 <%}%>
 
 </body>

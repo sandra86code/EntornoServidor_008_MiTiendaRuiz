@@ -2,50 +2,12 @@
 
 body {
     height: 100vh;
-    margin: 0;
-    background-color: #A3C7D6;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .wrapper {
     height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 150px 25px 4fr 25px;
-    grid-template-areas:
-        "close_session page_name user_name"
-        ". . . "
-        ". content . "
-        ". . .";
 }
 
-.close_session {
-	display: grid;
-    grid-area: close_session;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background-color: #fff;
-}
-
-.page_name {
-	display: grid;
-    grid-area: page_name;
-    background-color: #fff;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    
-}
-
-.user_name {
-	display: grid;
-    grid-area: user_name;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    background-color: #fff;
-}
 
 .content {
 	display: grid;
@@ -71,13 +33,6 @@ body {
     padding-bottom: 50px;
     padding-top: 50px;
 }
-
-.page_name img {
-	width: 300px;
-	margin: auto;
-}
-
-
 
 
 
@@ -105,12 +60,4 @@ input[type="button"] {
     background-color: #9F73AB;
     border: 2px solid #9F73AB;
     color: #fff;
-}
-
-select {
-	text-align-last:center;
-}
-
-input {
-	text-align: center;
 }

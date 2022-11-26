@@ -176,20 +176,6 @@ INSERT INTO `appify`.`purchase` (`article_id`, `user_nick`, `purchase_date`, `ar
 
 -- --------------------------------------------------------
 
---
--- Estructura de tabla para la tabla `purchase`
---
-
-CREATE TABLE `appify`.`purchaseId` (
-  `article_id` BIGINT NOT NULL,
-  `user_nick` varchar(30) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `purchase_date` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
-
-
-
 
 --
 -- Índices para tablas volcadas

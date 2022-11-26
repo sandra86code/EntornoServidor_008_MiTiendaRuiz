@@ -67,6 +67,7 @@ public class Article {
 	}
 	
 	
+	
 	public int getCod() {
 		return cod;
 	}
@@ -164,9 +165,11 @@ public class Article {
 		this.purchases = purchases;
 	}
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(name);
+		return Objects.hash(category, cod, description, image, name, price, quantity);
 	}
 
 	@Override
@@ -178,7 +181,10 @@ public class Article {
 		if (getClass() != obj.getClass())
 			return false;
 		Article other = (Article) obj;
-		return Objects.equals(name, other.name);
+		return Objects.equals(category, other.category) && cod == other.cod
+				&& Objects.equals(description, other.description) && Objects.equals(image, other.image)
+				&& Objects.equals(name, other.name)
+				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price) && quantity == other.quantity;
 	}
 
 	@Override

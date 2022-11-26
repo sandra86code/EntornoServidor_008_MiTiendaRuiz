@@ -1,0 +1,240 @@
+@charset "UTF-8";
+
+
+.content {
+	display: grid;
+    width: 100%;
+    grid-area: content;
+    background-color: #A3C7D6;
+    grid-template-columns: 40px 1fr 40px;
+    grid-template-rows: 130px 1fr;
+    grid-template-areas:
+        ". admin_button ."
+        ". grid-container .";
+}
+
+/* -------------------- PARTE DEL ADMINISTRADOR -------------------- */
+
+/*  Botones del administrador */
+.admin {
+	grid-area: admin_button;
+	margin-left: auto; 
+	margin-right: 0;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+/* Grid del contenedor de la tabla del administrador */
+.grid-container-admin {
+    grid-area: grid-container;
+}
+
+/* Tablas */
+table {
+    width: 100%;
+    border-radius: 5px;
+    border: 3px solid #624F82;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+table thead {
+    background-color: #624F82;
+    border-collapse: collapse;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+table td,
+table th,
+table tr {
+    padding: 0.7rem 0.7rem;
+    text-align: center;
+    border: 2px solid #624F82;
+    border-collapse: collapse;
+}
+
+table th {
+	color: #fff;
+    background-color: #624F82;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+table thead th:first-child {
+    border-top-left-radius: 5px;
+}
+
+table thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+table thead th:first-child,
+table tr td:first-child {
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: #e7c8f0;
+}
+
+table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+/* Imagen */
+td img.image {
+	height: 100px;
+	cursor: pointer;
+}
+
+td img.image:hover {
+	transform: scale(2);
+}
+
+td.form {
+	margin-top: auto;
+}
+
+td.form form {
+	margin: auto;
+}
+
+/* Botones de eliminar y editar */
+button[type="submit"].btn {
+	background-color: transparent;
+	border-color: transparent;
+	font-size: 40px;
+	color: black;
+}
+
+
+
+/* -------------------- PARTE DEL USUARIO -------------------- */
+
+/* Grid del contenedor de los items para la visión del usuario */
+.grid-container-user {
+    grid-area: grid-container;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 0.9fr));
+    grid-auto-rows: 720px;
+    gap: 40px;
+    grid-auto-flow: row dense; 
+}
+
+.user {
+	grid-area: admin_button;
+	margin-left: 0; 
+	margin-right: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.user h1 {
+	color: #46166b;
+	font-size: 50px;
+}
+
+/* Cada una de las cards de los items */
+.gallery-item {
+	background-color: #fff;
+	width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px 1px grey;
+}
+
+/* Texto del item */
+.gallery-item-text {
+	height: 250px;
+	margin: auto;
+}
+
+.gallery-item-text p {
+	text-align: center;
+	padding-right: 10px;
+	padding-left: 10px;
+	font-size: 20px;
+}
+
+/* Titulo del articulo */
+.article-name {
+	font-size: 40px;
+	font-weight: bold;
+}
+
+/* Resto de info*/
+.article-info {
+	font-weight: bold;
+	text-align: right;
+}
+
+/* Parte de la imagen del artículo */
+.gallery-item-image {
+	height: 270px;
+}
+
+/* Tamaño de la imagen */
+.gallery-item-image img {
+	height: 100%;
+	margin-left: auto;
+  	margin-right: auto;
+  	margin-bottom: 20px;
+  	display: block;
+}
+
+/* Parte de la compra */
+.gallery-item-buy {
+	height: 140px;
+	margin-top: 20px;
+}
+
+form.add-article-to-cart {
+	text-align: center;
+}
+
+
+input,
+label,
+select,
+textarea {
+    display: block;
+    font-size: inherit;
+    max-width: 800px;
+}
+
+input[type="number"]{
+	margin: auto;
+	width: 60px;
+	margin-bottom: 10px;
+	margin-top: 6px;
+}
+
+/* Botones del administrador y del usuario */
+input[type="button"],
+button.login_button {
+    background-color: #624F82;
+    border: 2px solid #624F82;
+    color: #fff;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: medium;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 0.5rem 0;
+    padding: 1rem 2rem;
+}
+
+input[type="button"]:active,
+button:active {
+    filter: brightness(0.85);
+}
+
+input[type="button"]:hover,
+button:hover {
+    cursor: pointer;
+    filter: brightness(0.85);
+}
