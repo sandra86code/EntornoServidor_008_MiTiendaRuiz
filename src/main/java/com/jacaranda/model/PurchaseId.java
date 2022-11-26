@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.JoinColumn;
+
 public class PurchaseId implements Serializable {
-	
+	@Column(name="article_id")
 	private int article;
+	@Column(name="user_nick")
 	private String user;
+	@Column(name="purchase_date")
 	private LocalDateTime date;
 	
 	

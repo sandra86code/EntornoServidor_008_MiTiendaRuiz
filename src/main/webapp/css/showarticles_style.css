@@ -126,15 +126,29 @@ button[type="submit"].btn {
 
 .user {
 	grid-area: admin_button;
-	margin-left: 0; 
-	margin-right: auto;
+	display: grid;
+	grid-template-columns: 4fr 1fr;
+	grid-template-areas: "title show-purchases";
 	margin-top: auto;
 	margin-bottom: auto;
 }
 
-.user h1 {
-	color: #46166b;
-	font-size: 50px;
+h1.user-title {
+	grid-area: title;
+	color: rgb(70, 22, 107);
+	font-size: 40px;
+	margin-left: 0;
+	margin-right: auto;
+}
+
+.show-purchases {
+	grid-area: show-purchases;
+	width: 200px;
+	height: 70px;
+	font-size: 30px;
+	margin-left: auto;
+	margin-right: 0;
+	
 }
 
 /* Cada una de las cards de los items */

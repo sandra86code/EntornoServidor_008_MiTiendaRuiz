@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+.content {
+	display: grid;
+    width: 100%;
+    grid-area: content;
+    background-color: #A3C7D6;
+    grid-template-columns: 40px 1fr 40px;
+    grid-template-rows: 150px 1fr 300px;
+    grid-template-areas:
+        ". page-title . "
+        ". grid_container ."
+        ". gallery-articles-price ."
+}
+
+.page-title {
+	grid-area: page-title;
+	margin: auto;
+	font-size: 30px;
+	color: #3F3B6C;
+	margin-top: 0;
+}
+
+.grid_container {
+    grid-area: grid_container;
+    margin: auto;
+    background-color: white;
+    width: 70%;
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px 1px grey;
+}
+
+/* Tablas */
+table {
+    width: 80%;
+    margin: auto;
+    margin-top: 30px;
+    
+    border-radius: 10px;
+    border: 2px solid #9f73ab;;
+    border-collapse: collapse;
+    font-size: 20px;
+}
+
+td.total-price {
+	font-size: 30px;
+	font-weight: bold;
+	color: #3F3B6C;
+	text-align: right;
+}
+
+table thead {
+    background-color: #9f73ab;
+    border-collapse: collapse;
+    border-radius: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+table td,
+table th,
+table tr {
+    padding: 0.7rem 0.7rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    border: 2px solid #9f73ab;;
+    border-collapse: collapse;
+}
+
+table th {
+	color: #fff;
+    background-color: #9f73ab;;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+
+table thead th:first-child {
+    border-top-left-radius: 5px;
+}
+
+table thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+table thead th:first-child,
+table tr td:first-child {
+    text-align: center;
+}
+
+table tr:nth-child(even) {
+    background-color: #e7c8f0;
+}
+
+table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+button[type="submit"],
+input[type="button"] {
+    border-radius: 5px;
+    display: inline-block;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 0.5rem 0;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    padding: 1rem 2rem;
+}
+
+form {
+	margin: auto;
+	text-align: center;	
+}
+
+button[type="submit"] {
+	border: 2px solid #624F82;
+	background-color: #624F82;
+}
+
+.return_button {
+	background-color: #3F3B6C;
+    border: 2px solid #3F3B6C;
+}
+
+.return-buttons {
+	width: 100%;
+	margin: auto;
+	text-align: center;
+}
+
+.return-buttons input {
+	margin-left: auto;
+	margin-right: auto;
+}

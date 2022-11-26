@@ -144,10 +144,8 @@ public class User {
 
 	
 	public List<Purchase> getPurchases() {
-		return purchases;
+		return new ArrayList<Purchase>(purchases);
 	}
-
-
 
 
 
@@ -179,7 +177,6 @@ public class User {
 		User other = (User) obj;
 		return Objects.equals(nick, other.nick);
 	}
-
 
 
 
