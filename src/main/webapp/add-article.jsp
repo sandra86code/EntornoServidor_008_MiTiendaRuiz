@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="javax.servlet.http.HttpSession" %>
 <%@ page import ="com.jacaranda.model.Category" %>
 <%@ page import ="com.jacaranda.control.DaoCategory" %>
 <%@ page import ="java.util.Iterator" %>
@@ -60,7 +59,8 @@
 							}%>
 							</select>
 							<label class="login_label" for="name">Nombre*</label>
-							<input type="text" minlength="2" maxlength="50" placeholder="Introduce el nombre del artículo" name="name" required>
+							<input type="text" minlength="2" maxlength="50" placeholder="Introduce el nombre del artículo" 
+										name="name" required>
 							<label class="login_label" for="description">Descripción*</label>
 							<textarea minlength="2" maxlength="120" name="description" cols="45" required></textarea>
 							<label class="login_label" for="price">Precio*</label>

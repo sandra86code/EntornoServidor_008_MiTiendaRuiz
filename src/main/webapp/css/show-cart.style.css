@@ -60,12 +60,15 @@ body {
 .gallery-article-foto {
 	grid-area: "gallery-article-foto";
 	margin: auto;
+	width: 480px;
+	height: 360px;
 }
 
 /*Tamaño foto*/
 .photo {
-	height: 360px;
-	width: 480px;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 }
 
 /*Info de cada artículo */

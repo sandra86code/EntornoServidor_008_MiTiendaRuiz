@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import ="com.jacaranda.cart.Cart" %>
 <%@ page import ="com.jacaranda.cart.CartItem" %>
-<%@ page import ="com.jacaranda.control.DaoArticle" %>
-<%@ page import ="com.jacaranda.model.Article" %>
 <!DOCTYPE html>
 <html>
 <head>

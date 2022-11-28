@@ -17,7 +17,6 @@ import com.jacaranda.control.DaoArticle;
 import com.jacaranda.control.DaoException;
 import com.jacaranda.control.DaoUser;
 import com.jacaranda.model.Article;
-import com.jacaranda.model.User;
 
 /**
  * Servlet implementation class ShowArticlesServlet

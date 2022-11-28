@@ -7,13 +7,10 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-import com.jacaranda.cart.Cart;
 import com.jacaranda.cart.CartItem;
 import com.jacaranda.model.Article;
 import com.jacaranda.model.Purchase;
-import com.jacaranda.model.Purchase;
 import com.jacaranda.model.PurchaseException;
-import com.jacaranda.model.User;
 
 public class DaoPurchase {
 	

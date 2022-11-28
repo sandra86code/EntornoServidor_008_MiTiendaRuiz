@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-
 public class PurchaseId implements Serializable {
 	
 	private int article;

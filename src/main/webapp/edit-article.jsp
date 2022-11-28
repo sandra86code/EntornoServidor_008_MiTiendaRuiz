@@ -57,7 +57,7 @@
 										<label class="login_label" for="price_article">Precio</label>
 										<input type="number" name="price_article" min='0.01' step="0.01" value="<%=article.getPrice()%>" required><br>
 										<label class="login_label" for="quantity_article">Cantidad</label>
-										<input type="number" name="quantity_article" min='1' value="<%=article.getQuantity()%>" required><br>
+										<input type="number" name="quantity_article" min='0' value="<%=article.getQuantity()%>" required><br>
 										<label class="login_label" for="category_article">Categoría</label>
 										<select name="category_article" required>
 										<%

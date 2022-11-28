@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import ="com.jacaranda.control.DaoArticle" %>
-<%@ page import ="com.jacaranda.control.DaoUser" %>
 <%@ page import ="com.jacaranda.cart.Cart" %>
 <%@ page import ="com.jacaranda.model.Article" %>
-<%@ page import ="com.jacaranda.model.User" %>
 <%@ page import ="com.jacaranda.cart.CartItem" %>
 <!DOCTYPE html>
 <html>

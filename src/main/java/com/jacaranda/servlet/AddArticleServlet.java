@@ -1,11 +1,9 @@
 package com.jacaranda.servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.sql.Blob;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 import org.hibernate.Hibernate;
-
 import com.jacaranda.control.ConnectionDB;
 import com.jacaranda.control.DaoArticle;
 import com.jacaranda.control.DaoCategory;
