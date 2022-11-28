@@ -71,7 +71,7 @@ public class DaoPurchase {
 		try {
 			ConnectionDB connection = new ConnectionDB();
 			session = connection.getSession();
-			String hql = "SELECT article_id, purchase_date, article_price, quantity FROM purchase p WHERE user_nick='" + usernick + "' ORDER BY purchase_date DESC;";
+			String hql = "SELECT article_id, user_nick, purchase_date, article_price, quantity FROM purchase p WHERE user_nick='" + usernick + "' ORDER BY purchase_date DESC;";
 			Query<Purchase> query = session.createNativeQuery(hql, Purchase.class);
 			purchases = (ArrayList<Purchase>) query.getResultList();
 			session.close();
